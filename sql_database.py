@@ -147,6 +147,23 @@ def details():
             app.destroy()
             gui = customtkinter.CTk()
             gui.geometry("400x300+300+75")
+            with open("details.csv","r") as file:
+                db = csv.reader(file)
+                for row in db:
+                    text1 = f"Username: {row[0]}"
+                    text2 = f"Account No.: {row[1]}"
+                    text3 = f"Mobile No.: {row[2]}"
+                    text4 = f"Balance: {row[3]}"
+            label1 = customtkinter.CTkLabel(gui,text=text1,font=("Bauhaus 93, 20"))
+            label1.place(relx=0.3,rely=0.2)
+            label2 = customtkinter.CTkLabel(gui,text=text2,font=("Bauhaus 93, 20"))
+            label2.place(relx=0.3,rely=0.4)
+            label3 = customtkinter.CTkLabel(gui,text=text3,font=("Bauhaus 93, 20"))
+            label3.place(relx=0.3,rely=0.6)
+            label4 = customtkinter.CTkLabel(gui,text=text4,font=("Bauhaus 93, 20"))
+            label4.place(relx=0.3,rely=0.8)
+            quit_button = customtkinter.CTkButton(gui,text="Done",command=gui.destroy)
+            quit_button.place(relx=0.5,rely=0.8,anchor=tkinter.CENTER)
             gui.mainloop()
         a = entry1.get()
         b = entry2.get()

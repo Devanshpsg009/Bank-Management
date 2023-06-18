@@ -7,7 +7,7 @@ from tkinter import messagebox
 mydb = mysql.connector.connect(host="localhost", user="root", passwd="1234")
 mycursor = mydb.cursor()
 
-with open('count.txt', 'w') as file:
+with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
     file.write("2")
 
 def run(a):
@@ -20,7 +20,7 @@ run("use bank")
 run("create table if not exists signup(username varchar(30),password varchar(30))")
 
 def signup2():
-    with open("database.csv", "r") as file:
+    with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\database.csv", "r") as file:
         db = csv.reader(file)
         for row in db:
             usr = row[0]
@@ -37,7 +37,7 @@ def open_account():
         run("create table if not exists account(username varchar(30),account_id varchar(30),contact_no int(11),balance int(11))")
         mycursor.execute("insert into account values(%s,%s,%s,%s)", [a, b, int(c), int(d)])
         mydb.commit()
-        with open("account.csv", "a",newline="") as file:
+        with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\account.csv", "a",newline="") as file:
             db = csv.writer(file,lineterminator="\r\n")
             db.writerow([a, b, c, d])
         messagebox.showinfo("Success", "Account Created")
@@ -64,7 +64,7 @@ def deposite_money():
             b = entry2.get()
             account_exists = False
             username_correct = False
-            with open("account.csv", "r") as file:
+            with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\account.csv", "r") as file:
                 db = csv.reader(file)
                 for row in db:
                     usrnm = row[0]
@@ -106,7 +106,7 @@ def withdraw():
             b = entry2.get()
             account_exists = False
             username_correct = False
-            with open("account.csv", "r") as file:
+            with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\account.csv", "r") as file:
                 db = csv.reader(file)
                 for row in db:
                     usrnm = row[0]
@@ -144,32 +144,36 @@ def withdraw():
 def details():
     def ok():
         def gui():
-            app.destroy()
             gui = customtkinter.CTk()
             gui.geometry("400x300+300+75")
-            with open("details.csv","r") as file:
+            t1=""
+            t2=""
+            t3=""
+            t4=""
+            with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\details.csv","r") as file:
                 db = csv.reader(file)
                 for row in db:
-                    text1 = f"Username: {row[0]}"
-                    text2 = f"Account No.: {row[1]}"
-                    text3 = f"Mobile No.: {row[2]}"
-                    text4 = f"Balance: {row[3]}"
-            label1 = customtkinter.CTkLabel(gui,text=text1,font=("Bauhaus 93, 20"))
-            label1.place(relx=0.3,rely=0.2)
-            label2 = customtkinter.CTkLabel(gui,text=text2,font=("Bauhaus 93, 20"))
-            label2.place(relx=0.3,rely=0.4)
-            label3 = customtkinter.CTkLabel(gui,text=text3,font=("Bauhaus 93, 20"))
-            label3.place(relx=0.3,rely=0.6)
-            label4 = customtkinter.CTkLabel(gui,text=text4,font=("Bauhaus 93, 20"))
-            label4.place(relx=0.3,rely=0.8)
+                    t1 = f"Username: {row[0]}"
+                    t2 = f"Account No.: {row[1]}"
+                    t3 = f"Mobile No.: {row[2]}"
+                    t4 = f"Balance: {row[3]}"
+            label1 = customtkinter.CTkLabel(gui,text=t1,font=("Bauhaus 93", 20))
+            label1.place(relx=0.3,rely=0.1)
+            label2 = customtkinter.CTkLabel(gui,text=t2,font=("Bauhaus 93", 20))
+            label2.place(relx=0.3,rely=0.3)
+            label3 = customtkinter.CTkLabel(gui,text=t3,font=("Bauhaus 93", 20))
+            label3.place(relx=0.3,rely=0.5)
+            label4 = customtkinter.CTkLabel(gui,text=t4+" Rs",font=("Bauhaus 93", 20))
+            label4.place(relx=0.3,rely=0.7)
             quit_button = customtkinter.CTkButton(gui,text="Done",command=gui.destroy)
-            quit_button.place(relx=0.5,rely=0.8,anchor=tkinter.CENTER)
+            quit_button.place(relx=0.5,rely=0.9,anchor=tkinter.CENTER)
+            app.destroy()
             gui.mainloop()
         a = entry1.get()
         b = entry2.get()
         account_exists = False
         username_correct = False
-        with open("account.csv", "r") as file:
+        with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\account.csv", "r") as file:
             db = csv.reader(file)
             for row in db:
                 usrnm = row[0]
@@ -179,10 +183,10 @@ def details():
                     if accno == b:
                         mycursor.execute("select * from account where account_id=%s",[b])
                         row = mycursor.fetchall()
-                        with open("details.csv","w") as file:
-                            db = csv.writer(file)
+                        with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\details.csv","w") as file:
+                            db = csv.writer(file,lineterminator="")
                             db.writerows(row)
-                            gui()
+                        gui()
             if not account_exists:
                 if username_correct:
                     messagebox.showerror("Error", "Account number is incorrect. Please try again.")

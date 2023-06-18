@@ -3,7 +3,7 @@ from PIL import Image
 from tkinter import messagebox
 
 def open_another_py_file(file_path):
-    with open('count.txt', 'w') as file:
+    with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
         file.write("2")
     try:
         subprocess.Popen([sys.executable, file_path])
@@ -11,7 +11,7 @@ def open_another_py_file(file_path):
         print(f"Error opening {file_path}: {e}")
     sys.exit()
 def add_users(usrnm, psswd):
-    with open("database.csv","w",newline='') as file:
+    with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\database.csv","w",newline='') as file:
         db = csv.writer(file, lineterminator='')
         db.writerow([usrnm,psswd])
 def contactus():
@@ -29,13 +29,13 @@ def signup_ui():
         import sql_database
         sql_database.signup2()
         def perform_action():
-            open_another_py_file("main.py")
+            open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\main.py")
         def show_information_dialog():
             answer = messagebox.askquestion("Success", "Do you want to login now?")
             if answer == 'yes':
                 perform_action()
             else:
-                with open('count.txt', 'w') as file:
+                with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
                     file.write("2")
                 quit()
         show_information_dialog()
@@ -45,7 +45,7 @@ def signup_ui():
     app1.title("Signup")
     app1.geometry("800x600+300+75")
 
-    img1 = customtkinter.CTkImage(Image.open("background.jpg"),size=(1366,768))
+    img1 = customtkinter.CTkImage(Image.open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\background.jpg"),size=(1366,768))
     l1 = customtkinter.CTkLabel(master=app1, image=img1, text="")
     l1.pack()
 

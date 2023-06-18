@@ -1,9 +1,9 @@
 count = 1
 try:
-    with open('count.txt', 'r') as file:
+    with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'r') as file:
         count = int(file.read().strip())
 except FileNotFoundError:
-    with open('count.txt', 'w') as file:
+    with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
         file.write(str(count))
 
 if count <= 1:
@@ -14,5 +14,5 @@ else:
     login.login_ui()
 
 count += 1
-with open('count.txt', 'w') as file:
+with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
     file.write(str(count))

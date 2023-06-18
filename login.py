@@ -3,7 +3,7 @@ from PIL import Image
 from tkinter import messagebox
 
 def check_password(password):
-    with open("database.csv","r") as file:
+    with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\database.csv","r") as file:
         db = csv.reader(file)
         for row in db:
             pss = row[1]
@@ -16,7 +16,7 @@ def check_password(password):
                 else:
                     quit()
 def open_another_py_file(file_path):
-    with open('count.txt', 'w') as file:
+    with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
         file.write("1")
     try:
         subprocess.Popen([sys.executable, file_path])
@@ -25,9 +25,9 @@ def open_another_py_file(file_path):
     sys.exit()
 def function():
     messagebox.showinfo("Success","You may continue now.")
-    open_another_py_file("accmanagement.py")
+    open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\accmanagement.py")
 def check_usr(usrname):
-    with open("database.csv","r") as file:
+    with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\database.csv","r") as file:
         db = csv.reader(file)
         for row in db:
             usr = row[0]
@@ -36,7 +36,7 @@ def check_usr(usrname):
             else:
                 answer = messagebox.showerror("Error", "User not found, Sign up instead?")
                 if answer == "ok":
-                    open_another_py_file("main.py")
+                    open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\main.py")
                 else:
                     quit()
 def contactus():
@@ -58,7 +58,7 @@ def login_ui():
     app.title("Login")
     app.geometry("800x600+300+75")
 
-    img1 = customtkinter.CTkImage(Image.open("background.jpg"),size=(1366,768))
+    img1 = customtkinter.CTkImage(Image.open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\background.jpg"),size=(1366,768))
     l1 = customtkinter.CTkLabel(master=app, image=img1, text="")
     l1.pack()
 

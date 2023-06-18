@@ -25,7 +25,7 @@ def open_another_py_file(file_path):
     sys.exit()
 def function():
     messagebox.showinfo("Success","You may continue now.")
-    open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\accmanagement.py")
+    open_another_py_file("accmanagement.py")
 def check_usr(usrname):
     with open("database.csv","r") as file:
         db = csv.reader(file)
@@ -36,7 +36,7 @@ def check_usr(usrname):
             else:
                 answer = messagebox.showerror("Error", "User not found, Sign up instead?")
                 if answer == "ok":
-                    open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\main.py")
+                    open_another_py_file("main.py")
                 else:
                     quit()
 def contactus():
@@ -58,7 +58,7 @@ def login_ui():
     app.title("Login")
     app.geometry("800x600+300+75")
 
-    img1 = customtkinter.CTkImage(Image.open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\background.jpg"),size=(1366,768))
+    img1 = customtkinter.CTkImage(Image.open("background.jpg"),size=(1366,768))
     l1 = customtkinter.CTkLabel(master=app, image=img1, text="")
     l1.pack()
 

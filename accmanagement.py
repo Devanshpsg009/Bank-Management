@@ -7,7 +7,7 @@ def acmanage():
     root = customtkinter.CTk()
     root.title("Account Management")
     root.geometry("800x600+300+75")
-    img = Image.open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\background.jpg")
+    img = Image.open("background.jpg")
     img = img.resize((1366, 768))
     img1 = ImageTk.PhotoImage(img)
     l1 = customtkinter.CTkLabel(master=root, image=img1,text="")

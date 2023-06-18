@@ -29,7 +29,7 @@ def signup_ui():
         import sql_database
         sql_database.signup2()
         def perform_action():
-            open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\main.py")
+            open_another_py_file("main.py")
         def show_information_dialog():
             answer = messagebox.askquestion("Success", "Do you want to login now?")
             if answer == 'yes':
@@ -45,7 +45,7 @@ def signup_ui():
     app1.title("Signup")
     app1.geometry("800x600+300+75")
 
-    img1 = customtkinter.CTkImage(Image.open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\background.jpg"),size=(1366,768))
+    img1 = customtkinter.CTkImage(Image.open("background.jpg"),size=(1366,768))
     l1 = customtkinter.CTkLabel(master=app1, image=img1, text="")
     l1.pack()
 

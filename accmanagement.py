@@ -33,7 +33,7 @@ def acmanage():
     Update = customtkinter.CTkButton(master=frame2, text="Update info",width=240,height=50,font=("Bauhaus 93", 25),corner_radius=8,command=sql_database.update)
     Update.place(rely=0.5,relx=0.5,anchor = tkinter.CENTER)
 
-    Delete = customtkinter.CTkButton(master=frame2, text="Delete Your account",width=240,height=50,font=("Bauhaus 93", 25),corner_radius=8)
+    Delete = customtkinter.CTkButton(master=frame2, text="Delete Your account",width=240,height=50,font=("Bauhaus 93", 25),corner_radius=8,command=sql_database.delete)
     Delete.place(rely=0.8,relx=0.5,anchor = tkinter.CENTER)
 
     label1 = customtkinter.CTkLabel(l1,text="Welcome, What do you want to do?",fg_color="transparent",font=("Bauhaus 93", 30))

@@ -254,3 +254,48 @@ def update():
     done = customtkinter.CTkButton(app, text="Done", command=ok)
     done.place(relx=0.5, rely=0.7, anchor=tkinter.CENTER)
     app.mainloop()
+
+def delete():
+    def ok():
+        try:
+            a = entry1.get()
+            b = entry2.get()
+            account_exists = False
+            username_correct = False
+            with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\account.csv", "r") as file:
+                db = csv.reader(file)
+                for row in db:
+                    usrnm = row[0]
+                    accno = row[1]
+                    if usrnm == a:
+                        username_correct = True
+                        if accno == b:
+                            mycursor.execute("DELETE from account WHERE account_id = %s", [b])
+                            mydb.commit()
+                            with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\account.csv',"w") as file:
+                                db = csv.writer(file)
+                                db.writerow("")
+                            with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\details.csv',"w") as file:
+                                db = csv.writer(file)
+                                db.writerow("")
+                            messagebox.showinfo("Success", "Account Deleted")
+                            account_exists = True
+                            break
+            if not account_exists:
+                if username_correct:
+                    messagebox.showerror("Error", "Account number is incorrect. Please try again.")
+                else:
+                    messagebox.showerror("Error", "Account does not exist. Please create a new account")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+        app.destroy()
+
+    app = customtkinter.CTk()
+    app.geometry("400x300+300+75")
+    entry1 = customtkinter.CTkEntry(app, width=200, height=30, placeholder_text="Enter Username", placeholder_text_color="white")
+    entry1.place(rely=0.1, relx=0.5, anchor=tkinter.CENTER)
+    entry2 = customtkinter.CTkEntry(app, width=200, height=30, placeholder_text="Enter Account No.", placeholder_text_color="white")
+    entry2.place(rely=0.3, relx=0.5, anchor=tkinter.CENTER)
+    done = customtkinter.CTkButton(app, text="Done", command=ok)
+    done.place(relx=0.5, rely=0.7, anchor=tkinter.CENTER)
+    app.mainloop()

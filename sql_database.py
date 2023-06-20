@@ -201,3 +201,56 @@ def details():
     done = customtkinter.CTkButton(app,text="Ok",command=ok)
     done.place(rely=0.8, relx = 0.5, anchor=tkinter.CENTER)
     app.mainloop()
+
+def update():
+    def ok():
+        try:
+            a = entry1.get()
+            b = entry2.get()
+            account_exists = False
+            username_correct = False
+            with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\account.csv", "r") as file:
+                db = csv.reader(file)
+                for row in db:
+                    usrnm = row[0]
+                    accno = row[1]
+                    if usrnm == a:
+                        username_correct = True
+                        if accno == b:
+                            def gui():
+                                USERNAME = entry3.get()
+                                MOBILE = entry4.get()
+                                mycursor.execute("UPDATE account SET username = %s WHERE account_id = %s",[USERNAME,b])
+                                mycursor.execute("UPDATE account SET contact_no = %s WHERE account_id = %s",[MOBILE,b])
+                                mydb.commit()
+                                messagebox.showinfo("Success", "Information Updated")
+                                new.destroy()
+                            new = customtkinter.CTk()
+                            new.geometry("400x300+300+75")
+                            entry3 = customtkinter.CTkEntry(new, width=200, height=30, placeholder_text="Enter New Username", placeholder_text_color="white")
+                            entry3.place(rely=0.3, relx=0.5, anchor=tkinter.CENTER)
+                            entry4 = customtkinter.CTkEntry(new, width=200, height=30, placeholder_text="Enter New Mobile No.", placeholder_text_color="white")
+                            entry4.place(rely=0.5, relx=0.5, anchor=tkinter.CENTER)
+                            button = customtkinter.CTkButton(new,text="Confirm",command=gui)
+                            button.place(rely=0.7, relx=0.5, anchor=tkinter.CENTER)
+                            account_exists = True
+                            new.mainloop()
+                            break
+            if not account_exists:
+                if username_correct:
+                    messagebox.showerror("Error", "Account number is incorrect. Please try again.")
+                else:
+                    messagebox.showerror("Error", "Account does not exist. Please create a new account")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+        app.destroy()
+
+    app = customtkinter.CTk()
+    app.geometry("400x300+300+75")
+    entry1 = customtkinter.CTkEntry(app, width=200, height=30, placeholder_text="Enter Username", placeholder_text_color="white")
+    entry1.place(rely=0.1, relx=0.5, anchor=tkinter.CENTER)
+    entry2 = customtkinter.CTkEntry(app, width=200, height=30, placeholder_text="Enter Account No.", placeholder_text_color="white")
+    entry2.place(rely=0.3, relx=0.5, anchor=tkinter.CENTER)
+    done = customtkinter.CTkButton(app, text="Done", command=ok)
+    done.place(relx=0.5, rely=0.7, anchor=tkinter.CENTER)
+    app.mainloop()

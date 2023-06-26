@@ -223,6 +223,11 @@ def update():
                                 mycursor.execute("UPDATE account SET username = %s WHERE account_id = %s",[USERNAME,b])
                                 mycursor.execute("UPDATE account SET contact_no = %s WHERE account_id = %s",[MOBILE,b])
                                 mydb.commit()
+                                mycursor.execute("select * from account where account_id=%s",[b])
+                                row = mycursor.fetchall()
+                                with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\account.csv","w") as file:
+                                    db = csv.writer(file,lineterminator="\r\n")
+                                    db.writerows(row)
                                 messagebox.showinfo("Success", "Information Updated")
                                 new.destroy()
                             new = customtkinter.CTk()

@@ -34,8 +34,8 @@ def open_account():
         b = entry2.get()
         c = entry3.get()
         d = entry4.get()
-        run("create table if not exists account(username varchar(30),account_id varchar(30),contact_no int(11),balance int(11))")
-        mycursor.execute("insert into account values(%s,%s,%s,%s)", [a, b, int(c), int(d)])
+        run("create table if not exists account(username varchar(30),account_id varchar(30),contact_no int(15),balance int(10))")
+        mycursor.execute("insert into account values(%s,%s,%s,%s)", [a, b, c, d])
         mydb.commit()
         with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\account.csv", "a",newline="") as file:
             db = csv.writer(file,lineterminator="\r\n")

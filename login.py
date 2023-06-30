@@ -1,4 +1,4 @@
-import tkinter,customtkinter,csv,sys,subprocess
+import tkinter,customtkinter,csv,sys,subprocess,otp
 from PIL import Image
 from tkinter import messagebox
 
@@ -24,8 +24,36 @@ def open_another_py_file(file_path):
         print(f"Error opening {file_path}: {e}")
     sys.exit()
 def function():
-    messagebox.showinfo("Success","You may continue now.")
-    open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\accmanagement.py")
+    messagebox.showinfo("Verify","In Order to continue, you will have to verify yourself.")
+    def process_email():
+        email = email_entry.get()
+        try:
+            a = otp.sendotp(email)
+            def checkotp():
+                b = email_entry2.get()
+                if a == int(b):
+                    messagebox.showinfo("Success","You may continue now.")
+                    open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\accmanagement.py")
+                else:
+                    messagebox.showerror("Error","Wrong OTP, Please try again!")
+            window2 = customtkinter.CTk()
+            window2.title("Email Processing")
+            window2.geometry("300x150")
+            email_entry2 = customtkinter.CTkEntry(window2,placeholder_text="OTP")
+            email_entry2.place(rely = 0.3,relx = 0.5,anchor = tkinter.CENTER)
+            ok_button2 = customtkinter.CTkButton(window2, text="Verify", command=checkotp)
+            ok_button2.place(rely = 0.6,relx = 0.5,anchor = tkinter.CENTER)
+            window2.mainloop()
+        except Exception as e:
+            messagebox.showerror("Error",e)
+    window = customtkinter.CTk()
+    window.title("Email Processing")
+    window.geometry("300x150")
+    email_entry = customtkinter.CTkEntry(window,placeholder_text="Email")
+    email_entry.place(rely = 0.3,relx = 0.5,anchor = tkinter.CENTER)
+    ok_button = customtkinter.CTkButton(window, text="Send OTP", command=process_email)
+    ok_button.place(rely = 0.6,relx = 0.5,anchor = tkinter.CENTER)
+    window.mainloop()
 def check_usr(usrname):
     with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\database.csv","r") as file:
         db = csv.reader(file)
@@ -33,7 +61,33 @@ def check_usr(usrname):
             usr = row[0]
             if usrname == usr:
                 pass
+            elif usrname == "psgbankersadmin":
+                password = entry2.get()
+                if password == "psgbankersroot":
+                    messagebox.showinfo("Welcome","Admin mode activated!")
+                else:
+                    answer = messagebox.showerror("Error", "Password doesn't match, Try again?")
+                    if answer == "ok":
+                        pass
+                    else:
+                        quit()
             else:
+                answer = messagebox.showerror("Error", "User not found, Sign up instead?")
+                if answer == "ok":
+                    open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\main.py")
+                else:
+                    quit()
+    if usrname == "psgbankersadmin":
+                password = entry2.get()
+                if password == "psgbankersroot":
+                    messagebox.showinfo("Welcome","Admin mode activated!")
+                else:
+                    answer = messagebox.showerror("Error", "Password doesn't match, Try again?")
+                    if answer == "ok":
+                        pass
+                    else:
+                        quit()
+    else:
                 answer = messagebox.showerror("Error", "User not found, Sign up instead?")
                 if answer == "ok":
                     open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\main.py")
@@ -70,6 +124,7 @@ def login_ui():
 
     entry1 = customtkinter.CTkEntry(master=frame, width=220, placeholder_text="Username", placeholder_text_color="light green", corner_radius=6)
     entry1.place(relx=0.5, rely=0.35, anchor=tkinter.CENTER)
+    global entry2
     entry2 = customtkinter.CTkEntry(master=frame, width=220, placeholder_text="Password", placeholder_text_color="light green", corner_radius=6)
     entry2.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 

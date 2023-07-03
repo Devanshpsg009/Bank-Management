@@ -1,6 +1,12 @@
-import tkinter,customtkinter,sql_database
+import tkinter,customtkinter,sql_database,subprocess,sys
 from PIL import Image,ImageTk
 
+def open_another_py_file():
+    try:
+        subprocess.Popen([sys.executable, "C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\atm.py"])
+    except Exception as e:
+        print(f"Error opening file: {e}")
+    sys.exit()
 customtkinter.set_appearance_mode("Dark")
 customtkinter.set_default_color_theme("green")
 root = customtkinter.CTk()
@@ -20,14 +26,8 @@ frame2.place(relx=0.95, rely=0.6, anchor=tkinter.E)
 open_account = customtkinter.CTkButton(master=frame1, text="Open new account",width=240,height=50,font=("Bauhaus 93", 25),corner_radius=8,command=sql_database.open_account)
 open_account.place(rely=0.2,relx=0.5,anchor = tkinter.CENTER)
 
-Deposite = customtkinter.CTkButton(master=frame1, text="Deposite Money",width=240,height=50,font=("Bauhaus 93", 25),corner_radius=8,command=sql_database.deposite_money)
-Deposite.place(rely=0.5,relx=0.5,anchor = tkinter.CENTER)
-
-Withdraw = customtkinter.CTkButton(master=frame1, text="Withdrow Money",width=240,height=50,font=("Bauhaus 93", 25),corner_radius=8,command=sql_database.withdraw)
-Withdraw.place(rely=0.8,relx=0.5,anchor = tkinter.CENTER)
-
-Details = customtkinter.CTkButton(master=frame2, text="Your Details",width=240,height=50,font=("Bauhaus 93", 25),corner_radius=8,command=sql_database.details)
-Details.place(rely=0.2,relx=0.5,anchor = tkinter.CENTER)
+e_atm = customtkinter.CTkButton(frame1,text="Visit E-ATM",width=240,height=50,font=("Bauhaus 93", 25),corner_radius=8,command=open_another_py_file)
+e_atm.place(rely=0.4,relx=0.5,anchor = tkinter.CENTER)
 
 Update = customtkinter.CTkButton(master=frame2, text="Update info",width=240,height=50,font=("Bauhaus 93", 25),corner_radius=8,command=sql_database.update)
 Update.place(rely=0.5,relx=0.5,anchor = tkinter.CENTER)

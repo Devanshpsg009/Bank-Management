@@ -10,10 +10,8 @@ def check_password(password):
             if password == pss:
                 function()
             else:
-                answer = messagebox.showerror("Error", "Password doesn't match, Try again?")
-                if answer == "ok":
-                    pass
-                else:
+                answer = messagebox.askquestion("Error", "Password doesn't match, Try again?")
+                if answer == "no":
                     quit()
 def open_another_py_file(file_path):
     with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
@@ -55,44 +53,27 @@ def function():
     ok_button.place(rely = 0.6,relx = 0.5,anchor = tkinter.CENTER)
     window.mainloop()
 def check_usr(usrname):
-    with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\database.csv","r") as file:
-        db = csv.reader(file)
-        for row in db:
-            usr = row[0]
-            if usrname == usr:
-                pass
-            elif usrname == "psgbankersadmin":
-                password = entry2.get()
-                if password == "psgbankersroot":
-                    messagebox.showinfo("Welcome","Admin mode activated!")
-                else:
-                    answer = messagebox.showerror("Error", "Password doesn't match, Try again?")
-                    if answer == "ok":
-                        pass
-                    else:
-                        quit()
-            else:
-                answer = messagebox.showerror("Error", "User not found, Sign up instead?")
-                if answer == "ok":
-                    open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\main.py")
-                else:
-                    quit()
     if usrname == "psgbankersadmin":
                 password = entry2.get()
                 if password == "psgbankersroot":
                     messagebox.showinfo("Welcome","Admin mode activated!")
                 else:
-                    answer = messagebox.showerror("Error", "Password doesn't match, Try again?")
-                    if answer == "ok":
-                        pass
-                    else:
+                    answer = messagebox.askquestion("Error", "Password doesn't match, Try again?")
+                    if answer == "no":
                         quit()
     else:
-                answer = messagebox.showerror("Error", "User not found, Sign up instead?")
-                if answer == "ok":
-                    open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\main.py")
+        with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\database.csv","r") as file:
+            db = csv.reader(file)
+            for row in db:
+                usr = row[0]
+                if usrname == usr:
+                    check_password(entry2.get())
                 else:
-                    quit()
+                    answer = messagebox.askquestion("Error", "User not found, Sign up instead?")
+                    if answer == "yes":
+                        open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\main.py")
+                    else:
+                        quit()
 def contactus():
     customtkinter.set_appearance_mode("Dark")
     customtkinter.set_default_color_theme("green")

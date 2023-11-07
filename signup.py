@@ -1,19 +1,27 @@
-import tkinter,customtkinter,csv,sys,subprocess
+import tkinter
+import subprocess
 from PIL import Image
 from tkinter import messagebox
+import customtkinter
+import csv
+import sys
 
 def open_another_py_file(file_path):
-    with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
-        file.write("2")
+    count_file_path = 'count.txt'
+    with open(count_file_path, 'w') as count_file:
+        count_file.write("2")
     try:
         subprocess.Popen([sys.executable, file_path])
     except Exception as e:
         print(f"Error opening {file_path}: {e}")
-    sys.exit()
+        sys.exit()
+
 def add_users(usrnm, psswd):
-    with open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\database.csv","w",newline='') as file:
-        db = csv.writer(file, lineterminator='')
-        db.writerow([usrnm,psswd])
+    database_path = 'database.csv'
+    with open(database_path, 'a', newline='') as file:
+        db = csv.writer(file)
+        db.writerow([usrnm, psswd])
+
 def contactus():
     customtkinter.set_appearance_mode("Dark")
     customtkinter.set_default_color_theme("green")
@@ -21,31 +29,37 @@ def contactus():
     contact_window.title("Contact Us")
     contact_window.geometry("800x600")
     contact_window.mainloop()
+
 def signup_ui():
     def get_username_password2():
         username = entry3.get()
         password = entry4.get()
         add_users(username, password)
-        import sql_database
+        import sql_database  # Consider moving imports to the top of the file
         sql_database.signup2()
+
         def perform_action():
-            open_another_py_file("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\main.py")
+            open_another_py_file("main.py")
+
         def show_information_dialog():
             answer = messagebox.askquestion("Success", "Do you want to login now?")
             if answer == 'yes':
                 perform_action()
             else:
-                with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
-                    file.write("2")
+                count_file_path = 'count.txt'
+                with open(count_file_path, 'w') as count_file:
+                    count_file.write("2")
                 quit()
+
         show_information_dialog()
+
     customtkinter.set_appearance_mode("Dark")
     customtkinter.set_default_color_theme("green")
     app1 = customtkinter.CTk()
     app1.title("Signup")
     app1.geometry("800x600+300+75")
 
-    img1 = customtkinter.CTkImage(Image.open("C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\background.jpg"),size=(1366,768))
+    img1 = customtkinter.CTkImage(Image.open("background.jpg"), size=(1366, 768))
     l1 = customtkinter.CTkLabel(master=app1, image=img1, text="")
     l1.pack()
 
@@ -55,10 +69,9 @@ def signup_ui():
     l2 = customtkinter.CTkLabel(master=frame, text="Create your account", font=("Bauhaus 93", 30))
     l2.place(relx=0.5, rely=0.10, anchor=tkinter.CENTER)
 
-
     entry3 = customtkinter.CTkEntry(master=frame, width=220, placeholder_text="Username", placeholder_text_color="light green", corner_radius=6)
     entry3.place(relx=0.5, rely=0.35, anchor=tkinter.CENTER)
-    entry4 = customtkinter.CTkEntry(master=frame, width=220, placeholder_text="Password", placeholder_text_color="light green", corner_radius=6)
+    entry4 = customtkinter.CTkEntry(master=frame, width=220, placeholder_text="Password", placeholder_text_color="light green", corner_radius=6, show = "*")
     entry4.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
     signup = customtkinter.CTkButton(master=frame, text="Signup", command=get_username_password2)
@@ -66,4 +79,8 @@ def signup_ui():
 
     contact = customtkinter.CTkButton(master=app1, text="Contact Us", command=contactus)
     contact.place(relx=0.1, rely=0.95, anchor=tkinter.CENTER)
+
     app1.mainloop()
+
+if __name__ == "__main__":
+    signup_ui()

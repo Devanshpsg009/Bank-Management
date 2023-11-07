@@ -1,12 +1,13 @@
-import winreg,webbrowser
+import winreg, webbrowser
 from tkinter import messagebox
+
 def start():
     count = 1
     try:
-        with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'r') as file:
+        with open('C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\count.txt', 'r') as file:
             count = int(file.read().strip())
     except FileNotFoundError:
-        with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
+        with open('C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\count.txt', 'w') as file:
             file.write(str(count))
 
     if count <= 1:
@@ -17,8 +18,9 @@ def start():
         login.login_ui()
 
     count += 1
-    with open('C:\\Users\\laxmi\\Desktop\\My Coding\\school project\\Bank-Management\\count.txt', 'w') as file:
+    with open('C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\count.txt', 'w') as file:
         file.write(str(count))
+
 def get_installed_programs():
     try:
         key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"Software\Microsoft\Windows\CurrentVersion\Uninstall")
@@ -34,19 +36,37 @@ def get_installed_programs():
         winreg.CloseKey(key)
         return installed_programs
     except Exception as e:
-        return []
+        # Log the error here
+        return None
 
-installed_programs = get_installed_programs()
-if installed_programs:
+def open_mysql_download_page():
+    import requests
+    response = requests.get("https://dev.mysql.com/downloads/file/?id=520406")
+    if response.status_code == 200:
+        webbrowser.open("https://dev.mysql.com/downloads/file/?id=520406")
+    else:
+        webbrowser.open("https://dev.mysql.com/downloads/")
+        pass
+
+def main():
+    installed_programs = get_installed_programs()
+    if installed_programs is None:
+        # Log the error here
+        pass
+    elif installed_programs:
         cnt = 0
         for program in installed_programs:
             if "MySQL" in program:
-              cnt += 1
+                cnt += 1
         if cnt >= 1:
             start()
-else:
-    a = messagebox.askquestion("Error","Sorry, Latest version or Mysql is not installed in your computer.Do you want to download Mysql?")
-    if a == "yes":
-        webbrowser.open("https://dev.mysql.com/downloads/file/?id=520406")
     else:
-        quit()
+        message = "Sorry, MySQL is not installed on your computer. Do you want to download it?"
+        answer = messagebox.askquestion("Error", message)
+        if answer == "Yes":
+            open_mysql_download_page()
+        else:
+            quit()
+
+if __name__ == "__main__":
+    main()

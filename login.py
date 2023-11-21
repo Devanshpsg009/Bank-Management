@@ -7,6 +7,26 @@ from PIL import Image
 import otp  # Ensure you have the 'otp' module installed
 import customtkinter
 
+class PasswordEntry(customtkinter.CTkEntry):
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+        self.show_password = False
+
+        self.show_password_button = customtkinter.CTkButton(self, text="Show", command=self.toggle_password,width=20)
+        self.show_password_button.grid(row=0, column=1, sticky="e")
+
+    def toggle_password(self):
+        self.show_password = not self.show_password
+        self.update_display()
+
+    def update_display(self):
+        if self.show_password:
+            self.show_password_button.configure(text="Hide")
+            self.configure(show="")
+        else:
+            self.show_password_button.configure(text="Show")
+            self.configure(show="*")
+
 def check_password(password, stored_password):
     if password == stored_password:
         function()
@@ -115,7 +135,7 @@ def login_ui():
 
     entry1 = customtkinter.CTkEntry(master=frame, width=220, placeholder_text="Username", placeholder_text_color="light green", corner_radius=6)
     entry1.place(relx=0.5, rely=0.35, anchor=tkinter.CENTER)
-    entry2 = customtkinter.CTkEntry(master=frame, width=220, placeholder_text="Password", placeholder_text_color="light green", corner_radius=6, show = "*")
+    entry2 = PasswordEntry(master=frame, width=180, placeholder_text="Password", placeholder_text_color="light green", corner_radius=6, show = "*")
     entry2.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
     login = customtkinter.CTkButton(master=frame, text="Login", command=get_username_password)

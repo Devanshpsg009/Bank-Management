@@ -1,13 +1,15 @@
 import winreg, webbrowser
 from tkinter import messagebox
+import os
+cwd = os.getcwd()
 
 def start():
     count = 1
     try:
-        with open('C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\count.txt', 'r') as file:
+        with open('count.txt', 'r') as file:
             count = int(file.read().strip())
     except FileNotFoundError:
-        with open('C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\count.txt', 'w') as file:
+        with open('count.txt', 'w') as file:
             file.write(str(count))
 
     if count <= 1:
@@ -18,7 +20,7 @@ def start():
         login.login_ui()
 
     count += 1
-    with open('C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\count.txt', 'w') as file:
+    with open('count.txt', 'w') as file:
         file.write(str(count))
 
 def get_installed_programs():

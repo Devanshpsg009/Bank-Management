@@ -2,12 +2,33 @@ import mysql.connector
 import tkinter
 import customtkinter
 import csv
+import account_id
 from tkinter import messagebox
+
+class PasswordEntry(customtkinter.CTkEntry):
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+        self.show_password = False
+
+        self.show_password_button = customtkinter.CTkButton(self, text="Show", command=self.toggle_password,width=20)
+        self.show_password_button.grid(row=0, column=1, sticky="e")
+
+    def toggle_password(self):
+        self.show_password = not self.show_password
+        self.update_display()
+
+    def update_display(self):
+        if self.show_password:
+            self.show_password_button.configure(text="Hide")
+            self.configure(show="")
+        else:
+            self.show_password_button.configure(text="Show")
+            self.configure(show="*")
 
 mydb = mysql.connector.connect(host="localhost", user="root", passwd="1234")
 mycursor = mydb.cursor()
 
-with open('C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\count.txt', 'w') as file:
+with open('count.txt', 'w') as file:
     file.write("2")
 
 def run(a):
@@ -20,7 +41,7 @@ run("use bank")
 run("create table if not exists signup(username varchar(30),password varchar(30))")
 
 def signup2():
-    with open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\database.csv", "r") as file:
+    with open("database.csv", "r") as file:
         db = csv.reader(file)
         for row in db:
             usr = row[0]
@@ -31,13 +52,14 @@ def signup2():
 def open_account():
     def ok():
         a = entry1.get()
-        b = entry2.get()
+        b = account_id.sendaccount_id
+        # edited
         c = entry3.get()
         d = entry4.get()
         run("create table if not exists account(username varchar(30),account_id varchar(30),contact_no varchar(20),balance varchar(10))")
         mycursor.execute("insert into account values(%s,%s,%s,%s)", [a, b, c, d])
         mydb.commit()
-        with open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\account.csv", "a",newline="") as file:
+        with open("account.csv", "a",newline="") as file:
             db = csv.writer(file,lineterminator="\r\n")
             db.writerow([a, b, c, d])
         messagebox.showinfo("Success", "Account Created")
@@ -64,7 +86,7 @@ def deposite_money():
             b = entry2.get()
             account_exists = False
             username_correct = False
-            with open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\account.csv", "r") as file:
+            with open("account.csv", "r") as file:
                 db = csv.reader(file)
                 for row in db:
                     usrnm = row[0]
@@ -106,7 +128,7 @@ def withdraw():
             b = entry2.get()
             account_exists = False
             username_correct = False
-            with open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\account.csv", "r") as file:
+            with open("account.csv", "r") as file:
                 db = csv.reader(file)
                 for row in db:
                     usrnm = row[0]
@@ -150,7 +172,7 @@ def details():
             t2=""
             t3=""
             t4=""
-            with open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\details.csv","r") as file:
+            with open("details.csv","r") as file:
                 db = csv.reader(file)
                 for row in db:
                     t1 = f"Username: {row[0]}"
@@ -173,7 +195,7 @@ def details():
         b = entry2.get()
         account_exists = False
         username_correct = False
-        with open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\account.csv", "r") as file:
+        with open("account.csv", "r") as file:
             db = csv.reader(file)
             for row in db:
                 usrnm = row[0]
@@ -183,7 +205,7 @@ def details():
                     if accno == b:
                         mycursor.execute("select * from account where account_id=%s",[b])
                         row = mycursor.fetchall()
-                        with open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\details.csv","w") as file:
+                        with open("details.csv","w") as file:
                             db = csv.writer(file,lineterminator="")
                             db.writerows(row)
                         gui()
@@ -209,7 +231,7 @@ def update():
             b = entry2.get()
             account_exists = False
             username_correct = False
-            with open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\account.csv", "r") as file:
+            with open("account.csv", "r") as file:
                 db = csv.reader(file)
                 for row in db:
                     usrnm = row[0]
@@ -225,7 +247,7 @@ def update():
                                 mydb.commit()
                                 mycursor.execute("select * from account where account_id=%s",[b])
                                 row = mycursor.fetchall()
-                                with open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\account.csv","w") as file:
+                                with open("account.csv","w") as file:
                                     db = csv.writer(file,lineterminator="\r\n")
                                     db.writerows(row)
                                 messagebox.showinfo("Success", "Information Updated")
@@ -267,7 +289,7 @@ def delete():
             b = entry2.get()
             account_exists = False
             username_correct = False
-            with open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\account.csv", "r") as file:
+            with open("account.csv", "r") as file:
                 db = csv.reader(file)
                 for row in db:
                     usrnm = row[0]
@@ -277,10 +299,10 @@ def delete():
                         if accno == b:
                             mycursor.execute("DELETE from account WHERE account_id = %s", [b])
                             mydb.commit()
-                            with open('C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\account.csv',"w") as file:
+                            with open('account.csv',"w") as file:
                                 db = csv.writer(file)
                                 db.writerow("")
-                            with open('C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\details.csv',"w") as file:
+                            with open('details.csv',"w") as file:
                                 db = csv.writer(file)
                                 db.writerow("")
                             messagebox.showinfo("Success", "Account Deleted")

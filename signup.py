@@ -6,6 +6,26 @@ import customtkinter
 import csv
 import sys
 
+class PasswordEntry(customtkinter.CTkEntry):
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+        self.show_password = False
+
+        self.show_password_button = customtkinter.CTkButton(self, text="Show", command=self.toggle_password,width=20)
+        self.show_password_button.grid(row=0, column=1, sticky="e")
+
+    def toggle_password(self):
+        self.show_password = not self.show_password
+        self.update_display()
+
+    def update_display(self):
+        if self.show_password:
+            self.show_password_button.configure(text="Hide")
+            self.configure(show="")
+        else:
+            self.show_password_button.configure(text="Show")
+            self.configure(show="*")
+
 def open_another_py_file(file_path):
     count_file_path = 'count.txt'
     with open(count_file_path, 'w') as count_file:
@@ -71,7 +91,7 @@ def signup_ui():
 
     entry3 = customtkinter.CTkEntry(master=frame, width=220, placeholder_text="Username", placeholder_text_color="light green", corner_radius=6)
     entry3.place(relx=0.5, rely=0.35, anchor=tkinter.CENTER)
-    entry4 = customtkinter.CTkEntry(master=frame, width=220, placeholder_text="Password", placeholder_text_color="light green", corner_radius=6, show = "*")
+    entry4 = PasswordEntry(master=frame, width=180, placeholder_text="Password", placeholder_text_color="light green", corner_radius=6, show = "*")
     entry4.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
     signup = customtkinter.CTkButton(master=frame, text="Signup", command=get_username_password2)

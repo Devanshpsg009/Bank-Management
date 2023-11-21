@@ -3,7 +3,7 @@ from PIL import Image,ImageTk
 
 def open_another_py_file():
     try:
-        subprocess.Popen([sys.executable, "C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\atm.py"])
+        subprocess.Popen([sys.executable,"atm.py"])
     except Exception as e:
         print(f"Error opening file: {e}")
     sys.exit()
@@ -12,7 +12,7 @@ customtkinter.set_default_color_theme("green")
 root = customtkinter.CTk()
 root.title("Account Management")
 root.geometry("800x600+300+75")
-img = Image.open("C:\\Users\\Devansh Gahlot\\Desktop\\My Coding\\Bank-Management\\background.jpg")
+img = Image.open("background.jpg")
 img = img.resize((1366, 768))
 img1 = ImageTk.PhotoImage(img)
 l1 = customtkinter.CTkLabel(master=root, image=img1,text="")

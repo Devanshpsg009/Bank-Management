@@ -4,7 +4,7 @@ import csv
 import sys
 import subprocess
 from PIL import Image
-import otp  # Ensure you have the 'otp' module installed
+import otp
 import customtkinter
 
 class PasswordEntry(customtkinter.CTkEntry):
@@ -57,6 +57,7 @@ def function():
                 if otp_value == int(entered_otp):
                     messagebox.showinfo("Success", "You may continue now.")
                     open_another_py_file("accmanagement.py")
+                    quit()
                 else:
                     messagebox.showerror("Error", "Wrong OTP, please try again!")
 

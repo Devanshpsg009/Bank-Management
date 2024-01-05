@@ -2,28 +2,7 @@ import mysql.connector
 import tkinter
 import customtkinter
 import csv
-import account_id
 from tkinter import messagebox
-
-class PasswordEntry(customtkinter.CTkEntry):
-    def __init__(self, master, **kwargs):
-        super().__init__(master, **kwargs)
-        self.show_password = False
-
-        self.show_password_button = customtkinter.CTkButton(self, text="Show", command=self.toggle_password,width=20)
-        self.show_password_button.grid(row=0, column=1, sticky="e")
-
-    def toggle_password(self):
-        self.show_password = not self.show_password
-        self.update_display()
-
-    def update_display(self):
-        if self.show_password:
-            self.show_password_button.configure(text="Hide")
-            self.configure(show="")
-        else:
-            self.show_password_button.configure(text="Show")
-            self.configure(show="*")
 
 mydb = mysql.connector.connect(host="localhost", user="root", passwd="1234")
 mycursor = mydb.cursor()
@@ -52,8 +31,7 @@ def signup2():
 def open_account():
     def ok():
         a = entry1.get()
-        b = account_id.sendaccount_id
-        # edited
+        b = entry2.get()
         c = entry3.get()
         d = entry4.get()
         run("create table if not exists account(username varchar(30),account_id varchar(30),contact_no varchar(20),balance varchar(10))")

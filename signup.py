@@ -55,11 +55,12 @@ def signup_ui():
         username = entry3.get()
         password = entry4.get()
         add_users(username, password)
-        import sql_database  # Consider moving imports to the top of the file
+        import sql_database
         sql_database.signup2()
 
         def perform_action():
             open_another_py_file("main.py")
+            quit()
 
         def show_information_dialog():
             answer = messagebox.askquestion("Success", "Do you want to login now?")
